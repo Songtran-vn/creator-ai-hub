@@ -35,10 +35,10 @@ function addPoints(n, coins = 0) { const p = P(); p.points += n; p.coins += coin
 let authMode = "login";
 function renderAuth() {
   const reg = authMode === "register";
-  $("#app").innerHTML = `<div class="auth"><div class="auth-card">
-    <div class="logo">CREATOR AI HUB</div>
-    <p class="muted">Lộ trình 60 ngày trở thành Creator AI bán hàng</p>
+  $("#app").innerHTML = `<div class="auth"><div class="hero"><div>CREATOR<br>AI HUB<small>Go Global cùng nhân vật AI của bạn</small></div></div>
+    <div class="auth-side"><h1 class="brand-title">CREATOR AI HUB</h1><p class="muted" style="margin:6px 0 0">Hệ thống Creator AI bán hàng – Lộ trình 60 ngày</p><div class="auth-card">
     <h2>${reg ? "Đăng ký" : "Đăng nhập"}</h2>
+    ${reg ? "" : `<p class="muted" style="text-align:center;margin:0 0 14px">Nhanh nhất là dùng nút Google bên dưới.</p><button class="gbtn" onclick="toast('Đăng nhập Google sẽ có khi nối máy chủ – bản demo dùng email')">G&nbsp; Tiếp tục với Google</button><div class="or">hoặc</div><p class="muted">Đã có mật khẩu thì đăng nhập ở đây:</p>`}
     ${reg ? `<label>Tên hiển thị</label><input id="f-name">` : ""}
     <label>Email</label><input id="f-email" type="email" value="${esc(reg ? "" : S.rememberEmail)}">
     <label>Mật khẩu</label><input id="f-pass" type="password">
@@ -46,7 +46,7 @@ function renderAuth() {
     <button class="btn" style="width:100%" onclick="${reg ? "doRegister()" : "doLogin()"}">${reg ? "Tạo tài khoản" : "Đăng nhập"}</button>
     <p class="muted" style="text-align:center">${reg ? `Đã có tài khoản? <a href="#" onclick="authMode='login';renderAuth()">Đăng nhập</a>` : `Chưa có tài khoản? <a href="#" onclick="authMode='register';renderAuth()">Đăng ký ngay</a>`}</p>
     <p class="muted">Tài khoản mới cần quản trị viên duyệt. Bản demo: dữ liệu lưu trên trình duyệt, đăng nhập admin bằng <b>admin@demo.vn / admin123</b> để duyệt.</p>
-  </div></div>`;
+  </div></div></div>`;
 }
 function doRegister() {
   const name = $("#f-name").value.trim(), email = $("#f-email").value.trim().toLowerCase(), pass = $("#f-pass").value;
