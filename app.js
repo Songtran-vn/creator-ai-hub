@@ -72,25 +72,48 @@ const NAV = [
   ["projects", "🚀 Dự án ra mắt"], ["guide", "📖 Cẩm nang"], ["profile", "👤 Hồ sơ"],
 ];
 let view = "home";
-function go(v) { view = v; $(".side")?.classList.remove("open"); renderApp(); }
+function go(v) { view = v; renderApp(); scrollTo(0, 0); }
+// Tab ngang như bản gốc; các mục phụ nằm trong menu thả xuống của "Trang Chủ"
+const TABS = [["zoom", "🎥 Video Zoom", "New", "new"], ["season", "TOP KOL"], ["spin", "🔮 Báu Vật"], ["course", "📚 Lộ trình 60 ngày", "Mới", "hot"], ["ai", "🤖 Trợ lý AI"], ["groups", "👥 Nhóm VIP", "VIP", "hot"], ["garden", "☁️ Vườn Mây"]];
+const SUB = [["home", "🏠 Trang Chủ"], ["projects", "🚀 Dự án ra mắt"], ["connect", "🔌 Kết nối AI"], ["guide", "📖 Cẩm nang"], ["profile", "👤 Hồ sơ"]];
+function toggleTheme() { document.documentElement.dataset.theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; try { localStorage.setItem("cah_theme", document.documentElement.dataset.theme); } catch {} }
+try { document.documentElement.dataset.theme = localStorage.getItem("cah_theme") || "light"; } catch {}
 function renderApp() {
   const u = me(), p = P();
-  const nav = NAV.concat(u.role === "admin" ? [["admin", "🛠️ Quản trị"]] : []);
-  $("#app").innerHTML = `<div class="layout">
-    <aside class="side"><div class="logo">CREATOR AI HUB</div><div class="muted">${esc(u.name)} · ${rankOf(p.points).name}</div>
-      <nav class="nav">${nav.map(([k, l]) => `<button class="${k === view ? "on" : ""}" onclick="go('${k}')">${l}</button>`).join("")}</nav>
-      <div class="nav"><button onclick="whatsNew()">✨ Có gì mới</button><button onclick="bugReport()">🐞 Báo lỗi</button><button onclick="logout()">↩ Đăng xuất</button></div>
-    </aside>
-    <main><div class="top"><div><button class="btn ghost sm menu-btn" onclick="$('.side').classList.toggle('open')">☰</button>
-      <b style="font-size:20px;margin-left:6px">${NAV.concat([["admin", "🛠️ Quản trị"]]).find(n => n[0] === view)[1]}</b></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill">🪙 ${p.coins} xu</span><span class="pill">⚔️ ${p.points} lực chiến</span><span class="pill">📖 ${3 - p.daily.learn}/3 lượt học</span></div></div>
-    <div id="view">${VIEWS[view]()}</div></main></div>`;
+  const sub = SUB.concat(u.role === "admin" ? [["admin", "🛠️ Quản trị"]] : []);
+  const rankNo = leaderboard().findIndex(x => x.you) + 1;
+  const tab = ([k, l, b, c]) => `<button class="tab ${k === view ? "on" : ""} ${c === "hot" ? "hot" : ""}" onclick="go('${k}')">${l}${b ? ` <span class="badge ${c}">${b}</span>` : ""}</button>`;
+  $("#app").innerHTML = `<header class="hdr"><div class="sq-logo">CA</div>
+      <div class="banner"><span>HUYỀN THOẠI CREATOR AI</span></div>
+      <button class="icon-btn" onclick="toggleTheme()" title="Sáng / tối">🌙</button>
+      <div class="who"><b>${esc(u.name)}</b><small>🏅 ${rankOf(p.points).name.replace(/^\S+ /, "")} <em>#${rankNo}</em></small></div></header>
+    <nav class="tabs"><div class="dd"><button class="tab ${SUB.some(s => s[0] === view) || view === "admin" ? "on" : ""}" onclick="this.parentNode.classList.toggle('open')">Trang Chủ ▾</button>
+      <div class="dd-menu">${sub.map(([k, l]) => `<button onclick="go('${k}')">${l}</button>`).join("")}<button onclick="bugReport()">🐞 Báo lỗi</button><button onclick="logout()">↩ Đăng xuất</button></div></div>
+      <button class="tab" onclick="whatsNew()">✨ Có gì mới</button>${TABS.map(tab).join("")}</nav>
+    <main><div class="stats"><span class="pill">🪙 ${p.coins} xu</span><span class="pill">⚡ ${p.points} lực chiến</span><span class="pill">📖 ${3 - p.daily.learn}/3 lượt học</span></div>
+    <div id="view">${VIEWS[view]()}</div></main>`;
   VIEWS[view].after?.();
 }
 
 // ===== Views =====
 const VIEWS = {};
 VIEWS.home = () => {
+  const p = P();
+  // Bản đồ kiến thức: "Bạn" ở giữa, mỗi cụm là một khu vực của hệ thống
+  const clusters = [["Zoom Mùa 4", 400, 70, "#d4a017", "zoom"], ["TOP KOL", 400, 330, "#dc2626", "season"], ["Lộ trình", 170, 200, "#7c3aed", "course"], ["Vườn Mây", 630, 200, "#16a34a", "garden"]];
+  const known = Math.min(27, p.done.length + Object.keys(p.subs).length + 5);
+  const svg = clusters.map(([n, x, y, c, v]) => {
+    const kids = [0, 1, 2, 3].map(i => { const a = i * 1.3 - 2; return [x + Math.cos(a) * 55, y + Math.sin(a) * 45]; });
+    return `<line x1="400" y1="200" x2="${x}" y2="${y}" stroke="var(--line)"/>${kids.map(([kx, ky]) => `<line x1="${x}" y1="${y}" x2="${kx}" y2="${ky}" stroke="var(--line)"/><circle cx="${kx}" cy="${ky}" r="6" fill="${c}" opacity=".75"/>`).join("")}
+      <g style="cursor:pointer" onclick="go('${v}')"><circle cx="${x}" cy="${y}" r="11" fill="${c}"/><text x="${x}" y="${y + 26}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">${n}</text></g>`;
+  }).join("");
+  return `<div class="graph"><div class="graph-title">🧠 Mức Độ Khai Phá<small>${known}/27 kiến thức đã khai phá · ${Math.round(known / 27 * 100)}%</small></div>
+    <svg viewBox="0 0 800 400" width="100%">${svg}<circle cx="400" cy="200" r="22" fill="var(--card)" stroke="var(--gold)" stroke-width="3"/><text x="400" y="206" text-anchor="middle" font-size="16">🙂</text><text x="400" y="240" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)">Bạn</text></svg>
+    <div class="muted" style="text-align:right;font-size:12px">Bấm vào một cụm để mở khu vực đó</div></div>
+    <div class="wrap">${VIEWS.dash()}<h3 style="margin-top:24px">Dự án ra mắt</h3><div class="grid">${S.projects.slice(0, 3).map(x => `<div class="card proj"><b>${esc(x.title)}</b><p class="muted">${esc(x.desc)}</p></div>`).join("")}</div></div>`;
+};
+VIEWS.home.after = () => tickCountdown();
+VIEWS.dash = () => {
   const p = P(), pct = Math.round(p.done.length / 60 * 100), next = LESSONS.find(l => !p.done.includes(l.day));
   const r = rankOf(p.points), nr = RANKS[RANKS.indexOf(r) + 1];
   return `<div class="grid">
@@ -102,7 +125,6 @@ VIEWS.home = () => {
   ${next ? `<div class="card" style="margin-top:14px"><h3>Bài tiếp theo</h3><div class="lesson" onclick="openLesson(${next.day})"><div class="n">${next.day}</div><div><b>${esc(next.title)}</b><div class="muted">${esc(next.desc)}</div></div></div></div>` : ""}
   <div class="card" style="margin-top:14px"><h3>4 việc để được tính điểm</h3><p class="muted">✅ Học bài (+10) · 📝 Nộp bài tập (+20) · 🎡 Quay Báu Vật · 🌱 Thu hoạch Vườn Mây</p></div>`;
 };
-VIEWS.home.after = () => tickCountdown();
 function tickCountdown() {
   const el = $("#cd"); if (!el) return;
   const ms = Math.max(0, S.seasonEnd - Date.now()), d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
@@ -140,12 +162,23 @@ function submitHw(day) {
   P().subs[day] = v; addPoints(20, 3); openLesson(day); renderApp(); toast("Đã nộp bài tập");
 }
 
-VIEWS.zoom = () => `<div class="grid">${[1, 2, 3, 4].map(m => `<div class="card"><h3>Mùa ${m}</h3><p class="muted">${m === 4 ? "Đang diễn ra · 8 buổi" : "Đã kết thúc · Xem lại"}</p>
-  ${Array.from({ length: 3 }, (_, i) => `<div class="lesson" style="margin:8px 0" onclick="zoomReview(${m},${i + 1})"><div class="n">🎥</div><div>Buổi ${i + 1}<div class="muted">Slide + video ghi lại</div></div></div>`).join("")}</div>`).join("")}</div>`;
-function zoomReview(m, b) {
-  openModal(`<h2>Zoom Mùa ${m} – Buổi ${b}</h2><div style="aspect-ratio:16/9;background:var(--card2);border-radius:12px;display:grid;place-items:center" class="muted">▶ Bản ghi Zoom · vuốt để xem slide</div>
-  <h3>Đánh giá buổi học</h3><select id="star"><option>5 ⭐</option><option>4 ⭐</option><option>3 ⭐</option></select><textarea id="rv" placeholder="Cảm nhận của bạn"></textarea><button class="btn" onclick="closeModal();toast('Cảm ơn đánh giá của bạn!')">Gửi đánh giá</button>`);
-}
+const ZOOMS = [
+  ["Khai giảng Mùa 4 & lộ trình 9 tuần", "System"], ["Năng lực & bộ công cụ AI cần chuẩn bị", "Sản phẩm"],
+  ["Thực hành: cài trợ lý AI và kết nối Drive", "Thực hành"], ["Xây đội quân AI Agent đầu tiên", "Agent"], ["Tổng kết & giao bài tuần", "System"],
+];
+let zoomSel = 0;
+VIEWS.zoom = () => {
+  const seen = P().zoomSeen || [], z = ZOOMS[zoomSel];
+  return `<div class="wrap"><div class="card"><div style="display:flex;justify-content:space-between"><b>🎥 Video Zoom · Mùa 4</b><span class="muted">${seen.length}/${ZOOMS.length} bài</span></div>
+    <div class="bar" style="margin-top:10px"><i style="width:${seen.length / ZOOMS.length * 100}%"></i></div></div>
+  <div class="split"><div class="list"><div class="eyebrow">ZOOM 1: KHAI GIẢNG CREATOR AI MÙA 4</div>
+    ${ZOOMS.map(([t, tag], i) => `<div class="card zitem ${i === zoomSel ? "on" : ""}" onclick="zoomSel=${i};renderApp()"><span class="chk ${seen.includes(i) ? "ok" : ""}">✓</span><div><div class="eyebrow">BÀI ${i + 1}</div><b>1.${i + 1} — ${t}</b><br><span class="tag">${tag}</span></div></div>`).join("")}</div>
+  <div class="card detail"><div class="eyebrow">ZOOM 1: KHAI GIẢNG CREATOR AI MÙA 4</div><h2 style="margin:6px 0">1.${zoomSel + 1} — ${z[0]}</h2><span class="tag">${z[1]}</span>
+    <div class="video">▶</div>
+    ${seen.includes(zoomSel) ? `<p>✅ Đã xem bài này</p>` : `<button class="btn" onclick="markZoom(${zoomSel})">Đánh dấu đã xem (+5)</button>`}
+    <h3>Đánh giá buổi học</h3><select><option>5 ⭐</option><option>4 ⭐</option><option>3 ⭐</option></select><textarea placeholder="Cảm nhận của bạn"></textarea><button class="btn ghost" onclick="toast('Cảm ơn đánh giá của bạn!')">Gửi đánh giá</button></div></div></div>`;
+};
+function markZoom(i) { const p = P(); p.zoomSeen = (p.zoomSeen || []).concat(i); addPoints(5, 1); renderApp(); }
 
 function leaderboard() {
   const mine = { name: me().name, pts: P().points, you: true };
@@ -153,10 +186,18 @@ function leaderboard() {
   return [...others, mine].sort((a, b) => b.pts - a.pts);
 }
 VIEWS.season = () => {
-  const lb = leaderboard(), medal = ["🥇", "🥈", "🥉"];
-  return `<div class="card"><h3>Mùa 4 – mọi người bắt đầu lại từ 0</h3><p class="muted">Xếp hạng theo Lực chiến. Top 3 cuối mùa nhận thưởng: 500 / 300 / 150 xu + huy hiệu.</p></div><br>
+  const lb = leaderboard(), medal = ["🥇", "🥈", "🥉"], p = P(), lv = Math.floor(p.points / 100), rk = lb.findIndex(x => x.you) + 1;
+  return `<div class="wrap"><div class="card guide-row" onclick="go('guide')">📖 <div><b>Cẩm nang thi đua</b><div class="muted">Cách tính điểm, kiếm xu, thưởng thứ hạng và bảng giá</div></div></div>
+  <div class="card"><div class="muted" style="font-size:15px;margin-bottom:12px">Thông tin của bạn</div>
+    <div style="display:flex;gap:12px;align-items:center"><div class="ava">👤</div><div style="flex:1"><b style="color:var(--brand2)">Bạn</b><div class="muted">Lv.${lv} · ${p.coins} xu</div>
+      <div>Hạng: <b style="color:var(--brand)">#${rk}</b> · Lực chiến: <b style="color:var(--brand2)">⚡ ${p.points}</b></div></div>
+      <div style="text-align:center"><div class="stat" style="color:var(--brand2)">${p.done.length}</div><div class="muted" style="font-size:11px">BÀI ĐÃ HỌC</div></div></div>
+    <div class="card" style="background:var(--card2);margin-top:14px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>⚡ Lực chiến: ${p.points}</span><span class="muted">Lv.${lv} → Lv.${lv + 1} (${p.points % 100}%)</span></div>
+      <div class="bar warm" style="margin:8px 0"><i style="width:${p.points % 100}%"></i></div><div class="muted" style="font-size:12px">${p.points % 100} / 100 lực chiến để lên Lv.${lv + 1}</div></div>
+    <div class="days">${[1, 2, 3, 4, 5, 6, 7].map(d => `<span class="${d <= Math.min(7, p.done.length) ? "on" : ""}">${d}</span>`).join("")}</div></div>
+  <div class="card"><h3>Mùa 4 – mọi người bắt đầu lại từ 0</h3><p class="muted">Xếp hạng theo Lực chiến. Top 3 cuối mùa nhận thưởng: 500 / 300 / 150 xu + huy hiệu.</p></div>
   <div class="card"><table><tr><th>#</th><th>Thành viên</th><th>Cấp bậc</th><th>Lực chiến</th></tr>
-  ${lb.map((u, i) => `<tr style="${u.you ? "background:var(--card2)" : ""}"><td>${medal[i] || i + 1}</td><td>${esc(u.name)}${u.you ? " (bạn)" : ""}</td><td>${rankOf(u.pts).name}</td><td><b>${u.pts}</b></td></tr>`).join("")}</table></div>`;
+  ${lb.map((u, i) => `<tr style="${u.you ? "background:var(--card2)" : ""}"><td>${medal[i] || i + 1}</td><td>${esc(u.name)}${u.you ? " (bạn)" : ""}</td><td>${rankOf(u.pts).name}</td><td><b>${u.pts}</b></td></tr>`).join("")}</table></div></div>`;
 };
 
 VIEWS.groups = () => {
