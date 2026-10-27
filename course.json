@@ -1,0 +1,362 @@
+[
+  {
+    "day": 1,
+    "title": "Khởi tạo nhân vật Creator AI",
+    "desc": "Đặt tên, ngoại hình và chân dung thương hiệu cho nhân vật AI",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 2,
+    "title": "Tạo ảnh AI ngay trên điện thoại",
+    "desc": "Quy trình tạo ảnh sản phẩm mọi lúc mọi nơi",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 3,
+    "title": "Viết prompt như giao việc cho cộng sự",
+    "desc": "Cấu trúc prompt: vai trò – bối cảnh – yêu cầu – định dạng",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 4,
+    "title": "Giọng nói AI cho nhân vật",
+    "desc": "Nhân bản giọng nói để review sản phẩm",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 5,
+    "title": "Trợ lý ChatGPT riêng",
+    "desc": "Cấu hình GPT tuỳ chỉnh cho công việc bán hàng",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 6,
+    "title": "Bộ công cụ AI miễn phí 2026",
+    "desc": "10 công cụ chủ lực nên có",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 7,
+    "title": "Kiếm thu nhập tại nhà với AI",
+    "desc": "10 kỹ năng bán hàng có thể bắt đầu ngay",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 8,
+    "title": "Trang BioLink bán hàng",
+    "desc": "Gom sản phẩm và mạng xã hội vào một đường link",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 9,
+    "title": "Ghép nhân vật thành video bán hàng",
+    "desc": "Thử nghiệm avatar nói chuyện giới thiệu sản phẩm",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 10,
+    "title": "Tăng sức ảnh hưởng cho nhân vật",
+    "desc": "5 thủ thuật để nhân vật AI gần gũi như người thật",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 11,
+    "title": "Poster thương hiệu cá nhân",
+    "desc": "Thiết kế không cần Photoshop",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 12,
+    "title": "Poster sản phẩm",
+    "desc": "Bố cục bán hàng chuyên nghiệp",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 13,
+    "title": "Quản lý công việc với Notion",
+    "desc": "Tài liệu và hướng dẫn khách hàng",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 14,
+    "title": "Trang bán hàng đầu tay bằng Vibe Coding",
+    "desc": "Tạo web bằng AI trong 5 phút",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 15,
+    "title": "Mô hình hoá ý tưởng bằng bảng trắng",
+    "desc": "Trình bày workflow cho đối tác",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 16,
+    "title": "Affiliate Marketing với AI",
+    "desc": "Chọn con đường kiếm tiền phù hợp",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 17,
+    "title": "Lộ trình khởi nghiệp ít vốn",
+    "desc": "7 việc tạo thu nhập ngay",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 18,
+    "title": "Kế hoạch 30 ngày hành động",
+    "desc": "Thói quen mỗi ngày với AI",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 19,
+    "title": "Dự án online tại nhà",
+    "desc": "3 mô hình thu nhập thêm",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 20,
+    "title": "5 bước tới đơn hàng đầu tiên",
+    "desc": "Từ nội dung tới chốt đơn",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 21,
+    "title": "Tăng follow và thu hút khách",
+    "desc": "Chiến lược nội dung 90 ngày",
+    "phase": "Nền tảng"
+  },
+  {
+    "day": 22,
+    "title": "Thực chiến nâng cao – phần 1",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 23,
+    "title": "Thực chiến nâng cao – phần 2",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 24,
+    "title": "Thực chiến nâng cao – phần 3",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 25,
+    "title": "Thực chiến nâng cao – phần 4",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 26,
+    "title": "Thực chiến nâng cao – phần 5",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 27,
+    "title": "Thực chiến nâng cao – phần 6",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 28,
+    "title": "Thực chiến nâng cao – phần 7",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 29,
+    "title": "Thực chiến nâng cao – phần 8",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 30,
+    "title": "Thực chiến nâng cao – phần 9",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 31,
+    "title": "Thực chiến nâng cao – phần 10",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 32,
+    "title": "Thực chiến nâng cao – phần 11",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 33,
+    "title": "Thực chiến nâng cao – phần 12",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 34,
+    "title": "Thực chiến nâng cao – phần 13",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 35,
+    "title": "Thực chiến nâng cao – phần 14",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 36,
+    "title": "Thực chiến nâng cao – phần 15",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 37,
+    "title": "Thực chiến nâng cao – phần 16",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 38,
+    "title": "Thực chiến nâng cao – phần 17",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 39,
+    "title": "Thực chiến nâng cao – phần 18",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 40,
+    "title": "Thực chiến nâng cao – phần 19",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Tăng tốc"
+  },
+  {
+    "day": 41,
+    "title": "Thực chiến nâng cao – phần 20",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 42,
+    "title": "Thực chiến nâng cao – phần 21",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 43,
+    "title": "Thực chiến nâng cao – phần 22",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 44,
+    "title": "Thực chiến nâng cao – phần 23",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 45,
+    "title": "Thực chiến nâng cao – phần 24",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 46,
+    "title": "Thực chiến nâng cao – phần 25",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 47,
+    "title": "Thực chiến nâng cao – phần 26",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 48,
+    "title": "Thực chiến nâng cao – phần 27",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 49,
+    "title": "Thực chiến nâng cao – phần 28",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 50,
+    "title": "Thực chiến nâng cao – phần 29",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 51,
+    "title": "Thực chiến nâng cao – phần 30",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 52,
+    "title": "Thực chiến nâng cao – phần 31",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 53,
+    "title": "Thực chiến nâng cao – phần 32",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 54,
+    "title": "Thực chiến nâng cao – phần 33",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 55,
+    "title": "Thực chiến nâng cao – phần 34",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 56,
+    "title": "Thực chiến nâng cao – phần 35",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 57,
+    "title": "Thực chiến nâng cao – phần 36",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 58,
+    "title": "Thực chiến nâng cao – phần 37",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 59,
+    "title": "Thực chiến nâng cao – phần 38",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  },
+  {
+    "day": 60,
+    "title": "Thực chiến nâng cao – phần 39",
+    "desc": "Áp dụng, đo lường và tối ưu kết quả bán hàng",
+    "phase": "Bứt phá"
+  }
+]
