@@ -38,14 +38,14 @@ function renderAuth() {
   $("#app").innerHTML = `<div class="auth"><div class="hero"><div>CREATOR<br>AI HUB<small>Go Global cùng nhân vật AI của bạn</small></div></div>
     <div class="auth-side"><h1 class="brand-title">CREATOR AI HUB</h1><p class="muted" style="margin:6px 0 0">Hệ thống Creator AI bán hàng – Lộ trình 60 ngày</p><div class="auth-card">
     <h2>${reg ? "Đăng ký" : "Đăng nhập"}</h2>
-    ${reg ? "" : `<p class="muted" style="text-align:center;margin:0 0 14px">Nhanh nhất là dùng nút Google bên dưới.</p><button class="gbtn" onclick="toast('Đăng nhập Google sẽ có khi nối máy chủ – bản demo dùng email')">G&nbsp; Tiếp tục với Google</button><div class="or">hoặc</div><p class="muted">Đã có mật khẩu thì đăng nhập ở đây:</p>`}
+    ${reg ? "" : `<p class="muted" style="text-align:center;margin:0 0 14px">Nhanh nhất là dùng nút Google bên dưới.</p><button class="gbtn" onclick="window.CLOUD ? googleLogin() : toast('Đăng nhập Google cần bật chế độ cloud')">G&nbsp; Tiếp tục với Google</button><div class="or">hoặc</div><p class="muted">Đã có mật khẩu thì đăng nhập ở đây:</p>`}
     ${reg ? `<label>Tên hiển thị</label><input id="f-name">` : ""}
     <label>Email</label><input id="f-email" type="email" value="${esc(reg ? "" : S.rememberEmail)}">
     <label>Mật khẩu</label><input id="f-pass" type="password">
     ${reg ? "" : `<label class="muted"><input type="checkbox" id="f-rem" style="width:auto" ${S.rememberEmail ? "checked" : ""}> Nhớ email đăng nhập</label><br><br>`}
     <button class="btn" style="width:100%" onclick="${reg ? "doRegister()" : "doLogin()"}">${reg ? "Tạo tài khoản" : "Đăng nhập"}</button>
     <p class="muted" style="text-align:center">${reg ? `Đã có tài khoản? <a href="#" onclick="authMode='login';renderAuth()">Đăng nhập</a>` : `Chưa có tài khoản? <a href="#" onclick="authMode='register';renderAuth()">Đăng ký ngay</a>`}</p>
-    <p class="muted">Tài khoản mới cần quản trị viên duyệt. Bản demo: dữ liệu lưu trên trình duyệt, đăng nhập admin bằng <b>admin@demo.vn / admin123</b> để duyệt.</p>
+    <p class="muted">Tài khoản mới cần quản trị viên duyệt.${window.CLOUD ? "" : ` Bản demo: dữ liệu lưu trên trình duyệt, đăng nhập admin bằng <b>admin@demo.vn / admin123</b> để duyệt.`}</p>
   </div></div></div>`;
 }
 function doRegister() {
@@ -134,7 +134,7 @@ setInterval(tickCountdown, 30000);
 
 VIEWS.course = () => {
   const p = P();
-  return ["Nền tảng", "Tăng tốc", "Bứt phá"].map(ph => `<h3>${ph}</h3><div class="grid">${LESSONS.filter(l => l.phase === ph).map(l => {
+  return ["Nền tảng", "Tăng tốc", "Bứt phá"].map(ph => `<h3>${ph}</h3><div class="grid">${LESSONS.filter(l => l.phase === ph && !l.hidden).map(l => {
     const done = p.done.includes(l.day), lock = l.day > 1 && !p.done.includes(l.day - 1) && !done;
     return `<div class="card lesson ${done ? "done" : ""} ${lock ? "lock" : ""}" onclick="${lock ? "toast('Hoàn thành bài trước để mở khoá')" : `openLesson(${l.day})`}">
       <div class="n">${done ? "✓" : lock ? "🔒" : l.day}</div><div><b>Ngày ${l.day}: ${esc(l.title)}</b><div class="muted">${esc(l.desc)}</div>${p.subs[l.day] ? '<span class="tag">Đã nộp bài</span>' : ""}</div></div>`;
@@ -142,13 +142,15 @@ VIEWS.course = () => {
 };
 function openLesson(day) {
   const p = P(), l = LESSONS[day - 1], done = p.done.includes(day);
-  if (!p.daily.unlocked) return openModal(`<h2>🔐 Mật Lệnh Hôm Nay</h2><p class="muted">Nhập mật lệnh để mở lượt học. (Demo: mật lệnh hôm nay là <b>${dailyCode()}</b>)</p><input id="code"><button class="btn" onclick="unlock(${day})">Mở khoá</button>`);
+  if (!p.daily.unlocked) return openModal(`<h2>🔐 Mật Lệnh Hôm Nay</h2><p class="muted">Nhập mật lệnh để mở lượt học.${window.CLOUD ? "" : ` (Demo: mật lệnh hôm nay là <b>${dailyCode()}</b>)`}</p><input id="code"><button class="btn" onclick="unlock(${day})">Mở khoá</button>`);
   openModal(`<span class="tag">${l.phase}</span><h2>Ngày ${day}: ${esc(l.title)}</h2>
-    <div style="aspect-ratio:16/9;background:var(--card2);border-radius:12px;display:grid;place-items:center" class="muted">▶ Video bài học sẽ được cập nhật</div>
+    ${l.video ? `<iframe src="${esc(ytEmbed(l.video))}" style="width:100%;aspect-ratio:16/9;border:0;border-radius:12px" allowfullscreen></iframe>` : `<div style="aspect-ratio:16/9;background:var(--card2);border-radius:12px;display:grid;place-items:center" class="muted">▶ Video bài học sẽ được cập nhật</div>`}
     <h3>Nội dung chính</h3><p>${esc(l.desc)}. Xem video, ghi chú 3 ý quan trọng và áp dụng ngay vào nhân vật của bạn.</p>
     ${done ? `<p>✅ Bạn đã hoàn thành bài này.</p>` : `<button class="btn" ${p.daily.learn >= 3 ? "disabled" : ""} onclick="finishLesson(${day})">${p.daily.learn >= 3 ? "Đã hết 3 lượt học hôm nay" : "Hoàn tất bài học (+10)"}</button>`}
     <h3>Nộp bài tập</h3>${p.subs[day] ? `<p class="muted">Đã nộp: ${esc(p.subs[day])}</p>` : `<input id="sub" placeholder="Link ảnh / video bài làm"><button class="btn ghost" onclick="submitHw(${day})">Nộp bài (+20)</button>`}`);
 }
+// Link YouTube thường → link nhúng
+const ytEmbed = u => { const m = String(u).match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/); return m ? `https://www.youtube.com/embed/${m[1]}` : u; };
 function unlock(day) {
   if ($("#code").value.trim().toUpperCase() !== dailyCode()) return toast("Mật lệnh chưa đúng");
   P().daily.unlocked = true; save(); openLesson(day); renderApp();
@@ -347,4 +349,5 @@ function route() {
   }
   renderApp();
 }
-route();
+// Chế độ cloud: cloud.js tải dữ liệu từ Supabase rồi mới gọi route()
+if (!window.CLOUD) route();
